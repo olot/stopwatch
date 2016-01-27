@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Simple Stopwatch</title>
-  <link href="/stopwatch.css" rel="stylesheet">
+  <link href="./stopwatch.css" rel="stylesheet">
 </head>
 
 <body>
+
+  <div>Time: <span id="time"></span></div>
+  <input type="button" value="start" onclick="start();">
+  <input type="button" value="stop" onclick="stop();">
+  <input type="button" value="reset" onclick="reset()">
 
   <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="./stopwatch.js"></script>
