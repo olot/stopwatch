@@ -6,7 +6,7 @@ var timeElapsed;
 
 function startTimer() {
   offset = timeStopped || Date.now();
-  intervalFunction = setInterval(display, 1000);
+  intervalFunction = setInterval(display, 1);
 }
 
 function stopTimer() {
@@ -20,7 +20,17 @@ function timeDifference() {
   return timeDiff;
 }
 
+function timeFormatter(timeInMilliseconds) {
+  var time = new Date(timeInMilliseconds);
+  var minutes = time.getMinutes();
+  var seconds = time.getSeconds();
+  var milliseconds = time.getMilliseconds();
+  return minutes + ' :' + seconds + ' :' + milliseconds;
+}
+
+var timer = document.getElementById('timer');
+
 function display() {
   displayTime += timeDifference();
-  console.log(displayTime);
+  timer.innerHTML = timeFormatter(displayTime);
 }
