@@ -1,19 +1,20 @@
 var displayTime = 0;
+var interval;
 var offset;
-var intervalFunction;
-var timeStopped;
-var timeElapsed;
+var timer = document.getElementById('timer');
+var startButton = document.getElementById('start');
+var stopButton = document.getElementById('stop');
 
 function startTimer() {
-  offset = timeStopped || Date.now();
-  intervalFunction = setInterval(display, 1);
+  offset = Date.now();
+  interval = setInterval(counter, 1);
 }
 
 function stopTimer() {
-  clearInterval(intervalFunction);
+  clearInterval(interval);
 }
 
-function timeDifference() {
+function timeDiff() {
   var now = Date.now();
   var timeDiff = now - offset;
   offset = now;
@@ -28,9 +29,21 @@ function timeFormatter(timeInMilliseconds) {
   return minutes + ' :' + seconds + ' :' + milliseconds;
 }
 
-var timer = document.getElementById('timer');
-
-function display() {
-  displayTime += timeDifference();
+function counter() {
+  displayTime += timeDiff();
+  console.log(displayTime, timeFormatter(displayTime), timer);
   timer.innerHTML = timeFormatter(displayTime);
 }
+
+function reset() {
+  clearInterval(interval);
+  displayTime = 0;
+}
+
+startButton.addEventListener('click', function() {
+  startTimer();
+});
+
+stopButton.addEventListener('click', function() {
+  stopTimer();
+});
