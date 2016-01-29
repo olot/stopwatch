@@ -1,17 +1,33 @@
 var displayTime = 0;
 var interval;
 var offset;
+var state = 'off';
 var timer = document.getElementById('timer');
 var startButton = document.getElementById('start');
 var stopButton = document.getElementById('stop');
+var resetButton = document.getElementById('reset');
 
 function startTimer() {
-  offset = Date.now();
-  interval = setInterval(counter, 1);
+  if (state == 'off') {
+    offset = Date.now();
+    interval = setInterval(counter, 1);
+    state = 'on';
+  }
 }
 
 function stopTimer() {
-  clearInterval(interval);
+  if (state == 'on') {
+    clearInterval(interval);
+    state = 'off';
+  }
+}
+
+function reset() {
+  if (state == 'off') {
+    clearInterval(interval);
+    displayTime = 0;
+    timer.innerHTML = "00 m 00 s 000 ms";
+  }
 }
 
 function timeDiff() {
@@ -23,10 +39,24 @@ function timeDiff() {
 
 function timeFormatter(timeInMilliseconds) {
   var time = new Date(timeInMilliseconds);
-  var minutes = time.getMinutes();
-  var seconds = time.getSeconds();
-  var milliseconds = time.getMilliseconds();
-  return minutes + ' :' + seconds + ' :' + milliseconds;
+  var minutes = time.getMinutes().toString();
+  var seconds = time.getSeconds().toString();
+  var milliseconds = time.getMilliseconds().toString();
+
+  if (minutes.length < 2) {
+      minutes = '0' + minutes;
+  }
+
+
+  if (seconds.length < 2) {
+      seconds = '0' + seconds;
+  }
+
+  while (milliseconds.length < 3) {
+      milliseconds = '0' + milliseconds;
+  }
+
+  return minutes + ' m ' + seconds + ' s ' + milliseconds + ' ms';
 }
 
 function counter() {
@@ -35,15 +65,14 @@ function counter() {
   timer.innerHTML = timeFormatter(displayTime);
 }
 
-function reset() {
-  clearInterval(interval);
-  displayTime = 0;
-}
-
 startButton.addEventListener('click', function() {
   startTimer();
 });
 
 stopButton.addEventListener('click', function() {
   stopTimer();
+});
+
+resetButton.addEventListener('click', function() {
+  reset();
 });

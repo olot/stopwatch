@@ -9,9 +9,11 @@ test( "After startTimer function is called the displayTime should start increasi
   startTimer();
   setTimeout(function() {
     assert.ok(displayTime > 0, "Success!");
-    done();
     clearInterval(interval);
     displayTime = 0;
+    timer.innerHTML = "00 m 00 s 000 ms";
+    state = 'off';
+    done();
   }, 10);
 });
 
@@ -24,9 +26,11 @@ test( "displayTime should stop increasing when stopTimer function is called", fu
   setTimeout(function() {
     timeLater = displayTime;
     assert.equal(timeNow, timeLater, "Time is the same!");
-    done();
     clearInterval(interval);
     displayTime = 0;
+    timer.innerHTML = "00 m 00 s 000 ms";
+    state = 'off';
+    done();
   }, 100);
 });
 
@@ -37,6 +41,8 @@ test( "when startTimer is called the date should be recorded in the variable off
   assert.equal(actual, expected, "Date has been recorded!");
   clearInterval(interval);
   displayTime = 0;
+  timer.innerHTML = "00 m 00 s 000 ms";
+  state = 'off';
 });
 
 test( "the function timeDiff should record the difference between timeNow and offset", function(assert) {
@@ -46,9 +52,11 @@ test( "the function timeDiff should record the difference between timeNow and of
     var expected = Math.floor((Date.now() - offset)/10);
     var actual = Math.floor(timeDiff()/10);
     assert.equal(actual, expected, "timeDiff records interval!");
-    done();
     clearInterval(interval);
     displayTime = 0;
+    timer.innerHTML = "00 m 00 s 000 ms";
+    state = 'off';
+    done();
   }, 50);
 });
 
@@ -61,9 +69,11 @@ test( "startTimer should continue the counter after having been stoppped by stop
     startTimer();
     setTimeout(function() {
       assert.ok(displayTime > time, "Success!");
-      done();
       clearInterval(interval);
       displayTime = 0;
+      timer.innerHTML = "00 m 00 s 000 ms";
+      state = 'off';
+      done();
     }, 10);
   }, 51);
 });
@@ -73,4 +83,8 @@ test( "the reset function should make the counter 0", function(assert) {
   reset();
   var actual = displayTime;
   assert.equal(actual, expected, "Value is 0!");
+  clearInterval(interval);
+  displayTime = 0;
+  timer.innerHTML = "00 m 00 s 000 ms";
+  state = 'off';
 });
