@@ -2,7 +2,7 @@ var displayTime = 0;
 var interval;
 var offset;
 var state = 'off';
-var timer = document.getElementById('timer');
+var timer = document.getElementsByClassName('timer')[0];
 var startButton = document.getElementById('start');
 var stopButton = document.getElementById('stop');
 var resetButton = document.getElementById('reset');
