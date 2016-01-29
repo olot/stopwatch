@@ -8,9 +8,13 @@ body {
   background-color: black;
 }
 
-#timer {
+.timer {
   font-size: 100px;
   font-weight: 300;
+}
+
+.container {
+  margin-top: 25vh;
 }
 
 button {
@@ -28,7 +32,7 @@ button:hover {
   cursor: pointer;
 }
 
-#qunit {
+.qunit {
   margin-top: 100px;
 }
 
